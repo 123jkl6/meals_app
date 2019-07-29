@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/screen/categories_screen.dart';
 import 'package:meals_app/screen/category_meals_screen.dart';
+import 'package:meals_app/screen/filters_screen.dart';
+import 'package:meals_app/screen/meal_detail_screen.dart';
+import 'package:meals_app/screen/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,23 +24,37 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.pink,
-        accentColor:Colors.amber,
+        accentColor: Colors.amber,
         //canvasColor:Color.fromRGBO(255,254,299,1),
-        fontFamily : 'Raleway',
-        textTheme:ThemeData.light().textTheme.copyWith(
-          body1:TextStyle(color:Color.fromRGBO(20, 51, 51, 1),),
-          body2:TextStyle(color:Color.fromRGBO(20, 51, 51, 1),),
-          title: TextStyle(
-            fontFamily: "RobotoCondensed",
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        fontFamily: 'Raleway',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              body1: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              body2: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              title: TextStyle(
+                fontFamily: "RobotoCondensed",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
       ),
       initialRoute: "/",
       routes: {
-        "/" : (ctx) => CategoriesScreen(),
-        CategoryMealsScreen.routeName : (ctx) => CategoryMealsScreen(),
+        "/": (ctx) => TabsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        FilterScreen.routeName : (ctx)=>FilterScreen(),
+      },
+      // onGenerateRoute: (settings){
+      //   print(settings.arguments);
+      //   return MaterialPageRoute(builder:(ctx)=>CategoriesScreen());
+      // },
+      onUnknownRoute: (settings) {
+        //aka 404
+        return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
       },
     );
   }
