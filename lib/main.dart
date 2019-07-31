@@ -52,11 +52,15 @@ class _MyAppState extends State<MyApp> {
   void _toggleFavorite(String mealId) {
     final existingIndex =
         _favoriteMeals.indexWhere((meal) => meal.id == mealId);
-    if (existingIndex > 0) {
+    print("mealId : $mealId");
+    print("eixstingIndex : $existingIndex");
+    if (existingIndex >= 0) {
+      print("removing");
       setState(() {
         _favoriteMeals.removeAt(existingIndex);
       });
     } else {
+      print("adding");
       setState(() {
         _favoriteMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
       });
@@ -64,7 +68,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   bool _isMealFavorite(String id) {
-    return _favoriteMeals.any((meal)=>meal.id == id);
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -104,7 +108,8 @@ class _MyAppState extends State<MyApp> {
         "/": (ctx) => TabsScreen(favoriteMeals: _favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(availableMeals: _availableMeals),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(toggleFavorite:_toggleFavorite,isMealFavorite:_isMealFavorite),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(
+            toggleFavorite: _toggleFavorite, isMealFavorite: _isMealFavorite),
         FilterScreen.routeName: (ctx) => FilterScreen(
               saveFilter: _setFilters,
               currentFilters: _filters,
